@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090c1b">
+  <title>بحبك يا أغلى الناس — فيديو الكلمات</title>
+  <style>
+    :root{color-scheme:dark;--ink:#f7f0ed;--muted:#aaa7b9;--rose:#f0a6b4;--gold:#f3d5a2;--panel:rgba(18,19,38,.78)}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#292445 0%,#101326 46%,#080a13 100%);color:var(--ink);font-family:'Noto Sans Arabic',Tahoma,Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:28px}
+    .shell{width:min(1120px,100%);margin:auto}.topline{display:flex;align-items:center;justify-content:space-between;margin:0 2px 14px;color:var(--muted);font-size:12px;letter-spacing:.04em}.brand{display:flex;gap:9px;align-items:center;color:#e7d9de}.brand i{display:block;width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 14px var(--rose)}
+    .stage{position:relative;overflow:hidden;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#101526;box-shadow:0 28px 90px rgba(0,0,0,.5),0 0 50px rgba(181,111,154,.1)}canvas{display:block;width:100%;height:100%;object-fit:contain}.stage:after{content:"";pointer-events:none;position:absolute;inset:12px;border:1px solid rgba(255,255,255,.12);border-radius:11px}
+    .hud{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:21px 2px 0}.title h1{font:700 23px 'Noto Naskh Arabic','Traditional Arabic',serif;margin:0;color:#fff6f1}.title p{font-size:12px;color:var(--muted);margin:1px 0 0}.controls{display:flex;align-items:center;gap:10px}.button{border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.06);color:var(--ink);border-radius:999px;padding:10px 16px;font:600 12px 'Noto Sans Arabic',Tahoma,Arial,sans-serif;cursor:pointer;transition:.2s;white-space:nowrap}.button:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);transform:translateY(-1px)}.button.primary{background:linear-gradient(135deg,#e9a6b0,#d887a6);border-color:transparent;color:#291728;min-width:105px}.button.export{border-color:rgba(243,213,162,.38);color:var(--gold)}.button:disabled{opacity:.5;cursor:wait;transform:none}
+    .timeline{display:flex;align-items:center;gap:12px;margin:16px 2px 0;color:#a8a5b6;font-size:11px;direction:ltr}.track{height:3px;flex:1;border-radius:10px;background:rgba(255,255,255,.13);overflow:hidden;cursor:pointer}.fill{height:100%;width:0;background:linear-gradient(90deg,#f3d5a2,#e88fab);box-shadow:0 0 12px #e88fab}.bottom{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:20px;padding:14px 17px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:rgba(255,255,255,.025)}.hint{font-size:11px;line-height:1.8;color:#9997a8}.hint strong{color:#d8c9cb;font-weight:600}.file-label{display:inline-flex;align-items:center;gap:8px;cursor:pointer;color:#d6c6d0}.file-label input{display:none}.file-label span{padding:8px 12px;border:1px solid rgba(255,255,255,.14);border-radius:8px;font-size:11px}.file-label:hover span{border-color:var(--rose)}.audio-name{max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#9f9bab;font-size:10px}
+    @media(max-width:700px){body{padding:15px}.stage{border-radius:11px}.stage:after{inset:7px}.topline{font-size:10px}.hud{align-items:flex-start;flex-direction:column;gap:14px;margin-top:15px}.title h1{font-size:20px}.controls{width:100%;gap:7px}.button{padding:9px 12px;flex:1;font-size:10px}.bottom{align-items:flex-start;flex-direction:column}.file-label{width:100%;justify-content:space-between}.audio-name{max-width:55vw}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topline"><div class="brand"><i></i><span>حكاية حب · فيديو كلمات</span></div><span>نسخة سينمائية · 16:9</span></div>
+    <section class="stage" aria-label="فيديو كلمات الأغنية"><canvas id="video" width="1920" height="1080"></canvas></section>
+    <section class="hud">
+      <div class="title"><h1>بحبك يا أغلى الناس</h1><p>كلمات رومانسية تحت سماء القاهرة</p></div>
+      <div class="controls"><button class="button primary" id="play">▶&nbsp; تشغيل</button><button class="button" id="restart">إعادة من البداية</button><button class="button export" id="export">↓&nbsp; تصدير الفيديو</button></div>
+    </section>
+    <div class="timeline"><span id="current">00:00</span><div class="track" id="track"><div class="fill" id="fill"></div></div><span id="total">01:30</span></div>
+    <section class="bottom"><div class="hint"><strong>أضيفي لحنك:</strong> ارفعي ملف الأغنية لتتزامن الكلمات معه، ثم صدّري الفيديو بصيغة WebM.<br>بدون ملف صوتي، يعمل الفيديو بإيقاع هادئ تلقائيًا.</div><label class="file-label"><input id="audioFile" type="file" accept="audio/*"><span>♫ &nbsp;اختيار ملف صوتي</span><small class="audio-name" id="audioName">لم يتم اختيار ملف</small></label></section>
+  </main>
+  <audio id="audio" preload="metadata"></audio>
+<script>
+(() => {
+  const lines = [
+    {section:'المقطع الأول', text:'ماهو الوقت بيمشي بسرعة… كأنه لحظة حلوة وبتعدي'},
+    {section:'المقطع الأول', text:'طول ما أنا معاكي بنسى نفسي… وبنسى أيامي ووقتي'},
+    {section:'المقطع الأول', text:'أنا معاكي بعيش أجمل أيام حياتي'},
+    {section:'المقطع الأول', text:'وقربك مني بيحلّي كل ذكرياتي'},
+    {section:'اللازمة', text:'يا اللي عيونك دوبوني وسحروني'},
+    {section:'اللازمة', text:'من حلاوتك خلوني أنسى أيامي'},
+    {section:'اللازمة', text:'ده أنتِ كل شيء في الحياة بالنسبة لي'},
+    {section:'اللازمة', text:'بحبك يا أغلى الناس… ويا كل أحلامي'},
+    {section:'المقطع الثاني', text:'في عينيكي بشوف الدنيا بشكل تاني'},
+    {section:'المقطع الثاني', text:'وحبك هو اللي غيرلي زماني'},
+    {section:'المقطع الثاني', text:'كل ثانية جنبك بتسوى سنين'},
+    {section:'المقطع الثاني', text:'يا أرق وأغلى حب في الحياتين'},
+    {section:'اللازمة', text:'يا اللي عيونك دوبوني وسحروني'},
+    {section:'اللازمة', text:'من حلاوتك خلوني أنسى أيامي'},
+    {section:'اللازمة', text:'ده أنتِ كل شيء في الحياة بالنسبة لي'},
+    {section:'اللازمة', text:'بحبك يا أغلى الناس… ويا كل أحلامي'},
+    {section:'الخاتمة', text:'بنسى نفسي وأنا معاكي…'},
+    {section:'الخاتمة', text:'بحبك يا أغلى الناس…'},
+    {section:'الخاتمة', text:'بحبك…'}
+  ];
+  const canvas=document.querySelector('#video'),ctx=canvas.getContext('2d'),audio=document.querySelector('#audio');
+  const playBtn=document.querySelector('#play'),exportBtn=document.querySelector('#export'),fill=document.querySelector('#fill'),track=document.querySelector('#track');
+  let playing=false, startedAt=0, pausedAt=0, raf=0, duration=90, currentLine=-1, audioUrl=null, recorder=null, chunks=[];
+  const W=canvas.width,H=canvas.height;
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  const ease=v=>{v=clamp(v);return v*v*(3-2*v)};
+  const fmt=s=>{s=Math.max(0,Math.floor(s));return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`};
+  const weights=lines.map((l,i)=>(l.text.length>43?1.28:1)*(l.section==='اللازمة'?1.14:1)*(i===18?1.5:1));
+  function timings(total=duration){let sum=weights.reduce((a,b)=>a+b,0),t=0;return lines.map((line,i)=>{let start=t;t+=total*weights[i]/sum;return {...line,start,end:t,index:i}})}
+  let schedule=timings();
+  function sceneAt(t){return schedule.find(x=>t>=x.start&&t<x.end)||schedule[schedule.length-1]}
+  const stars=Array.from({length:125},(_,i)=>({x:(Math.sin(i*91.7)*.5+.5)*W,y:(Math.sin(i*17.31+2)*.5+.5)*H*.58,r:.7+(i%5)*.48,p:i*2.17}));
+  const motes=Array.from({length:50},(_,i)=>({x:(Math.sin(i*12.31)*.5+.5)*W,y:(Math.sin(i*23.73)*.5+.5)*H,v:.12+(i%5)*.11,p:i*3.2}));
+  function roundedRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
+  function draw(t){
+    const line=sceneAt(t), section=line.section, chorus=section==='اللازمة', outro=section==='الخاتمة';
+    const elapsed=line? t-line.start:0, span=line?line.end-line.start:1, prog=clamp(elapsed/span);
+    const dusk=ease(t/duration);
+    const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,outro?'#160f28':'#11172d');sky.addColorStop(.48,chorus?'#473044':'#293047');sky.addColorStop(.76,chorus?'#9e5964':'#855665');sky.addColorStop(1,'#f0ad8d');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+    // warm, slow-moving horizon glow
+    let glow=ctx.createRadialGradient(W*(.49+Math.sin(t*.035)*.05),H*.69,8,W*.5,H*.69,H*.56);glow.addColorStop(0,chorus?'rgba(255,197,159,.42)':'rgba(247,194,166,.29)');glow.addColorStop(1,'rgba(238,155,172,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+    // moon and stars
+    let mx=W*.78+Math.sin(t*.025)*18,my=H*.19;ctx.save();ctx.shadowColor='#ffe8cf';ctx.shadowBlur=48;ctx.fillStyle='#fff0d9';ctx.beginPath();ctx.arc(mx,my,52,0,Math.PI*2);ctx.fill();ctx.restore();
+    ctx.fillStyle='rgba(255,236,218,.8)';stars.forEach(s=>{let a=.2+.65*(.5+.5*Math.sin(t*.7+s.p));ctx.globalAlpha=a;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()});ctx.globalAlpha=1;
+    // skyline silhouettes, layered for depth
+    function skyline(y,seed,color,min,max){ctx.fillStyle=color;let x=0,n=0;while(x<W){let width=min+((n*37+seed*13)%max),height=60+((n*97+seed*31)%170);ctx.fillRect(x,y-height,width,height);if(n%4===1){ctx.fillRect(x+width*.42,y-height-17,4,18);ctx.fillRect(x+width*.42-15,y-height+28,10,3)}for(let wy=y-height+18;wy<y-10;wy+=26)for(let wx=x+12;wx<x+width-8;wx+=24)if((Math.floor(wx+wy+n)%4)!==0){ctx.fillStyle='rgba(255,211,159,.16)';ctx.fillRect(wx,wy,5,8);ctx.fillStyle=color}x+=width-3;n++}}
+    skyline(H*.76,3,'#252239',45,95);skyline(H*.82,9,'#17192d',55,110);
+    // rooftops
+    ctx.fillStyle='#111322';ctx.beginPath();ctx.moveTo(0,H*.89);ctx.lineTo(W*.28,H*.82);ctx.lineTo(W*.66,H*.87);ctx.lineTo(W,H*.79);ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.fill();
+    // string lights
+    ctx.strokeStyle='rgba(255,221,173,.34)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(W*.1,H*.83);ctx.quadraticCurveTo(W*.52,H*.91,W*.91,H*.81);ctx.stroke();for(let i=0;i<17;i++){let x=W*(.12+i*.046),y=H*(.83+.06*Math.sin(i/16*Math.PI));ctx.save();ctx.shadowColor='#ffdca7';ctx.shadowBlur=17;ctx.fillStyle=i%3?'#fbd8a5':'#f8b8bd';ctx.beginPath();ctx.arc(x,y,4,0,7);ctx.fill();ctx.restore()}
+    // couple silhouette: a quiet moment together, facing the city
+    const base=H*.878, cx=W*.5+Math.sin(t*.22)*5;ctx.fillStyle='#10111d';
+    // left figure
+    ctx.beginPath();ctx.arc(cx-28,base-163,25,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(cx-53,base-137);ctx.quadraticCurveTo(cx-86,base-105,cx-72,base);ctx.lineTo(cx-4,base);ctx.quadraticCurveTo(cx-1,base-90,cx-10,base-132);ctx.closePath();ctx.fill();
+    // right figure and flowing dress
+    ctx.beginPath();ctx.arc(cx+29,base-157,24,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(cx+5,base-132);ctx.quadraticCurveTo(cx+5,base-102,cx-8,base);ctx.lineTo(cx+80,base);ctx.quadraticCurveTo(cx+54,base-81,cx+54,base-129);ctx.closePath();ctx.fill();
+    // joining hands
+    ctx.strokeStyle='#10111d';ctx.lineWidth=13;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(cx-15,base-99);ctx.quadraticCurveTo(cx+2,base-84,cx+13,base-98);ctx.stroke();
+    // floating firefly-like motes
+    motes.forEach(m=>{let x=(m.x+t*m.v*8)%W,y=(m.y-t*m.v*3+H)%H;ctx.globalAlpha=.12+.32*(.5+.5*Math.sin(t+m.p));ctx.fillStyle='#ffd8bc';ctx.beginPath();ctx.arc(x,y,m.v*5,0,7);ctx.fill()});ctx.globalAlpha=1;
+    // soft cinematic vignette
+    let vign=ctx.createRadialGradient(W/2,H*.46,H*.2,W/2,H*.5,H*.72);vign.addColorStop(0,'rgba(8,10,21,0)');vign.addColorStop(1,'rgba(8,9,20,.6)');ctx.fillStyle=vign;ctx.fillRect(0,0,W,H);
+    // title and lyric card: subtle entrance / exit for each line
+    const fade=Math.min(ease(prog/.16),ease((1-prog)/.18));
+    ctx.save();ctx.globalAlpha=.62;ctx.textAlign='center';ctx.direction='rtl';ctx.fillStyle='#f4d8ce';ctx.font='600 24px Cairo, sans-serif';ctx.fillText(section,W/2,H*.337);ctx.restore();
+    ctx.save();ctx.globalAlpha=fade;ctx.textAlign='center';ctx.direction='rtl';ctx.shadowColor='rgba(15,10,25,.45)';ctx.shadowBlur=25;ctx.shadowOffsetY=5;
+    let size=line.text.length>48?51:line.text.length>38?58:67;ctx.font=`700 ${size}px Amiri, serif`;ctx.fillStyle='#fff8f4';
+    // wrap long lines safely into two lines
+    let words=line.text.split(' '),rows=[],row='';for(let word of words){let test=row?row+' '+word:word;if(ctx.measureText(test).width>1450&&row){rows.push(row);row=word}else row=test}if(row)rows.push(row);let y=H*.47-(rows.length-1)*43;
+    rows.forEach((r,i)=>{ctx.fillText(r,W/2,y+i*91)});
+    ctx.shadowBlur=0;ctx.fillStyle='rgba(243,213,162,.88)';ctx.font='500 20px Cairo, sans-serif';ctx.fillText('—  '+(line.index+1).toLocaleString('ar-EG')+'  —',W/2,H*.64);ctx.restore();
+    // quiet opening / closing title treatment
+    if(t<4){let a=1-ease((t-1.4)/2.6);ctx.globalAlpha=clamp(a);ctx.textAlign='center';ctx.direction='rtl';ctx.fillStyle='#f3d5a2';ctx.font='600 25px Cairo, sans-serif';ctx.fillText('حكاية حب',W/2,H*.24);ctx.globalAlpha=1}
+  }
+  function now(){return audio.src&&!audio.paused&&!audio.ended?audio.currentTime:pausedAt}
+  function frame(){if(!playing)return;let t=audio.src?audio.currentTime:(performance.now()-startedAt)/1000;if(t>=duration){t=duration;playing=false;pausedAt=t;playBtn.innerHTML='↻&nbsp; إعادة التشغيل';}let line=sceneAt(t);if(line.index!==currentLine){currentLine=line.index;document.querySelector('.title p').textContent=line.section+' · '+(line.index+1).toLocaleString('ar-EG')+' / '+lines.length.toLocaleString('ar-EG')}draw(t);fill.style.width=`${100*t/duration}%`;document.querySelector('#current').textContent=fmt(t);if(playing)raf=requestAnimationFrame(frame);else if(recorder?.state==='recording')recorder.stop()}
+  function play(){if(playing){playing=false;cancelAnimationFrame(raf);if(audio.src){pausedAt=audio.currentTime;audio.pause()}else pausedAt=(performance.now()-startedAt)/1000;playBtn.innerHTML='▶&nbsp; متابعة';return}if(pausedAt>=duration){pausedAt=0;if(audio.src)audio.currentTime=0}playing=true;if(audio.src){audio.currentTime=pausedAt;audio.play().catch(()=>{});}else startedAt=performance.now()-pausedAt*1000;playBtn.innerHTML='Ⅱ&nbsp; إيقاف مؤقت';frame()}
+  playBtn.addEventListener('click',play);
+  document.querySelector('#restart').addEventListener('click',()=>{playing=false;cancelAnimationFrame(raf);if(audio.src){audio.pause();audio.currentTime=0}pausedAt=0;currentLine=-1;playBtn.innerHTML='▶&nbsp; تشغيل';draw(0);fill.style.width='0%';document.querySelector('#current').textContent='00:00'});
+  track.addEventListener('click',e=>{let r=track.getBoundingClientRect(),t=clamp((e.clientX-r.left)/r.width)*duration;pausedAt=t;if(audio.src)audio.currentTime=t;else if(playing)startedAt=performance.now()-t*1000;draw(t);fill.style.width=`${t/duration*100}%`;document.querySelector('#current').textContent=fmt(t)});
+  document.querySelector('#audioFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(file);audio.src=audioUrl;document.querySelector('#audioName').textContent=file.name;audio.onloadedmetadata=()=>{duration=Number.isFinite(audio.duration)?audio.duration:90;schedule=timings(duration);document.querySelector('#total').textContent=fmt(duration);if(pausedAt>duration)pausedAt=0;draw(pausedAt)};});
+  audio.addEventListener('ended',()=>{playing=false;pausedAt=duration;playBtn.innerHTML='↻&nbsp; إعادة التشغيل';if(recorder?.state==='recording')recorder.stop()});
+  exportBtn.addEventListener('click',()=>{
+    if(!window.MediaRecorder||!canvas.captureStream){alert('التصدير غير مدعوم في هذا المتصفح. جرّبي فتح الصفحة في Chrome أو Edge.');return}
+    chunks=[];let stream=canvas.captureStream(30);
+    if(audio.src){try{let audioStream=audio.captureStream?audio.captureStream():audio.mozCaptureStream?.();audioStream?.getAudioTracks().forEach(track=>stream.addTrack(track))}catch(e){}}
+    let mime=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'].find(x=>MediaRecorder.isTypeSupported(x));
+    try{recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined)}catch(e){alert('تعذّر بدء التصدير في هذا المتصفح.');return}
+    recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};recorder.onstop=()=>{const blob=new Blob(chunks,{type:recorder.mimeType||'video/webm'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='bahibbak-lyrics-video.webm';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);exportBtn.disabled=false;exportBtn.innerHTML='↓&nbsp; تصدير الفيديو'};
+    exportBtn.disabled=true;exportBtn.textContent='جارٍ التسجيل…';if(playing){playing=false;cancelAnimationFrame(raf);if(audio.src)audio.pause()}pausedAt=0;if(audio.src)audio.currentTime=0;play();recorder.start();
+  });
+  document.querySelector('#total').textContent=fmt(duration);draw(0);
+})();
+</script>
+</body>
+</html>
